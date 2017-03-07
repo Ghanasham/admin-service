@@ -1,6 +1,5 @@
 package com.softcell.adminservice.domain;
 
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -9,7 +8,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -25,9 +23,6 @@ public class Organization {
 	@OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name="contact_details_id")
 	private ContactDetails orgContactDetails;
-	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-	private Set<Manager> managers;
 	
 	public Organization(){}
 	
@@ -55,18 +50,14 @@ public class Organization {
 		this.orgContactDetails = orgContactDetails;
 	}
 
-	public Set<Manager> getManagers() {
-		return managers;
+	@Override
+	public boolean equals(Object obj) {
+		if(obj == null || !(obj instanceof Organization))
+			return false;
+		
+		Organization other = (Organization)obj;
+		return this.orgId.equals(other.getOrgId())
+				&& this.name.equals(other.getName());
 	}
-
-	public void setManagers(Set<Manager> managers) {
-		if(this.managers == null)
-			this.managers = managers;
-		else{
-			this.managers.clear();
-			this.managers.addAll(managers);
-		}
-			
-	}
-	
+		
 }

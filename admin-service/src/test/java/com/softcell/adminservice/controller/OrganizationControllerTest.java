@@ -16,7 +16,7 @@ import java.util.UUID;
 
 import com.softcell.adminservice.controller.OrganizationController;
 import com.softcell.adminservice.domain.Organization;
-import com.softcell.adminservice.service.OrganizationService;
+import com.softcell.adminservice.service.db.DBOrganizationService;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(OrganizationController.class)
@@ -27,7 +27,7 @@ public class OrganizationControllerTest {
     private MockMvc mvc;
 
     @MockBean
-    private OrganizationService organizationService;
+    private DBOrganizationService organizationService;
 
     @Test
     public void testGetOrganization() throws Exception {

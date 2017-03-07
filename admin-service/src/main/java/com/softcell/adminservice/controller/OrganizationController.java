@@ -24,9 +24,9 @@ public class OrganizationController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public HttpStatus createOrganization(@RequestBody Organization org){
-		organizationService.createOrganization(org);
-		return HttpStatus.OK;
+	public Organization createOrganization(@RequestBody Organization org){
+		return organizationService.createOrganization(org);
+		
 	}
 	
 	@RequestMapping(path = "/{orgId}", method = RequestMethod.PUT)
