@@ -51,6 +51,7 @@ public class OrganizationDAO {
 		
 		dbOrg.setName(org.getName());
 		dbOrg.setOrgContactDetails(org.getOrgContactDetails());
+		dbOrg.setManagers(org.getManagers());
 		
 		manager.getTransaction().commit();
 		manager.close();

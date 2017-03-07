@@ -35,7 +35,6 @@ public class ContactDetails {
 	
 	private State state;
 
-
 	public String getEmail() {
 		return email;
 	}

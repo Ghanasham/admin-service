@@ -1,6 +1,9 @@
-C:\Users\Yogita\workspace\admin-service\src\main\java\com\softcell\adminservice\dao\OrganizationDAO.java
-C:\Users\Yogita\workspace\admin-service\src\main\java\com\softcell\adminservice\domain\ContactDetails.java
-C:\Users\Yogita\workspace\admin-service\src\main\java\com\softcell\adminservice\StartAdminService.java
-C:\Users\Yogita\workspace\admin-service\src\main\java\com\softcell\adminservice\domain\Organization.java
-C:\Users\Yogita\workspace\admin-service\src\main\java\com\softcell\adminservice\service\OrganizationService.java
-C:\Users\Yogita\workspace\admin-service\src\main\java\com\softcell\adminservice\controller\OrganizationController.java
+C:\Users\Yogita\git\admin-service\admin-service\src\main\java\com\softcell\adminservice\controller\OrganizationController.java
+C:\Users\Yogita\git\admin-service\admin-service\src\main\java\com\softcell\adminservice\domain\Manager.java
+C:\Users\Yogita\git\admin-service\admin-service\src\main\java\com\softcell\adminservice\service\OrganizationService.java
+C:\Users\Yogita\git\admin-service\admin-service\src\main\java\com\softcell\adminservice\domain\ManagerPrimaryKey.java
+C:\Users\Yogita\git\admin-service\admin-service\src\main\java\com\softcell\adminservice\domain\ContactDetails.java
+C:\Users\Yogita\git\admin-service\admin-service\src\main\java\com\softcell\adminservice\dao\OrganizationDAO.java
+C:\Users\Yogita\git\admin-service\admin-service\src\main\java\com\softcell\adminservice\StartAdminService.java
+C:\Users\Yogita\git\admin-service\admin-service\src\main\java\com\softcell\adminservice\domain\Organization.java
+C:\Users\Yogita\git\admin-service\admin-service\src\main\java\com\softcell\adminservice\domain\ApplicationType.java
