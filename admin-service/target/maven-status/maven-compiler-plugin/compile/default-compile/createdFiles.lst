@@ -1,0 +1,7 @@
+com\softcell\adminservice\StartAdminService.class
+com\softcell\adminservice\dao\OrganizationDAO.class
+com\softcell\adminservice\domain\ContactDetails.class
+com\softcell\adminservice\domain\Organization.class
+com\softcell\adminservice\controller\OrganizationController.class
+com\softcell\adminservice\service\OrganizationService.class
+com\softcell\adminservice\domain\ContactDetails$State.class

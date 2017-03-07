@@ -1,0 +1,3 @@
+com\softcell\adminservice\controller\OrganizationControllerTest.class
+com\softcell\adminservice\integration\OrganizationControllerIntegrationTest.class
+com\softcell\adminservice\service\OrganizationServiceTest.class
