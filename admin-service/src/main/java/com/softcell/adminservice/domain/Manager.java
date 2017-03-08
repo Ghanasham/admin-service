@@ -1,5 +1,6 @@
 package com.softcell.adminservice.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
@@ -22,6 +23,7 @@ public class Manager {
 	
 	private String role;
 	
+	@Column(nullable = false)
 	private byte level;
 
 	public Long getEmployeeId() {

@@ -23,16 +23,10 @@ public class OrganizationController {
 		return organizationService.getOrganization(orgId);
 	}
 	
-	@RequestMapping(method = RequestMethod.POST)
-	public Organization createOrganization(@RequestBody Organization org){
-		return organizationService.createOrganization(org);
-		
-	}
-	
 	@RequestMapping(path = "/{orgId}", method = RequestMethod.PUT)
 	public HttpStatus updateOrganization(@PathVariable Long orgId, @RequestBody Organization org){
 		org.setOrgId(orgId);
-		organizationService.updateOrganization(org);
+		organizationService.saveOrganization(org);
 		return HttpStatus.OK;
 	}
 }

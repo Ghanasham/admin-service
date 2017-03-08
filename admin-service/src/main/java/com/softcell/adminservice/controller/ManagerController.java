@@ -14,7 +14,7 @@ import com.softcell.adminservice.domain.ManagerPrimaryKey;
 import com.softcell.adminservice.service.ManagerService;
 
 @RestController
-@RequestMapping(path = "/admin/org/{orgId}/manager")
+@RequestMapping(path = "/admin/manager")
 public class ManagerController {
 
 	@Autowired
@@ -27,7 +27,7 @@ public class ManagerController {
 	
 	@RequestMapping(path = "/{employeeId}/{appType}", method = RequestMethod.PUT)
 	public HttpStatus updateManager(@PathVariable Long employeeId, @PathVariable ApplicationType appType, @RequestBody Manager manager){
-		managerService.updateManager(manager);
+		managerService.saveManager(manager);
 		return HttpStatus.OK;
 	}
 	

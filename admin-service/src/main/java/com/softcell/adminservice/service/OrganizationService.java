@@ -6,7 +6,6 @@ public interface OrganizationService {
 
 	public Organization getOrganization(Long orgId);
 	
-	public Organization createOrganization(Organization org);
+	public Organization saveOrganization(Organization org);
 	
-	public void updateOrganization(Organization org);
 }

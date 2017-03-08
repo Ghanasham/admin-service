@@ -3,7 +3,7 @@ package com.softcell.adminservice.service.db;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.softcell.adminservice.dao.ManagerDAO;
+import com.softcell.adminservice.dao.ManagerRepository;
 import com.softcell.adminservice.domain.Manager;
 import com.softcell.adminservice.domain.ManagerPrimaryKey;
 import com.softcell.adminservice.service.ManagerService;
@@ -12,28 +12,22 @@ import com.softcell.adminservice.service.ManagerService;
 public class DBManagerService implements ManagerService{
 
 	@Autowired
-	ManagerDAO managerDAO; 
+	ManagerRepository managerRepo; 
 	
 	@Override
 	public Manager getManager(ManagerPrimaryKey key) {
-		return managerDAO.getManager(key);
+		return managerRepo.findOne(key);
 	}
 
 	@Override
-	public void createManager(Manager maanger) {
-		managerDAO.createManager(maanger);
-		
-	}
-
-	@Override
-	public void updateManager(Manager maanger) {
-		managerDAO.updateManager(maanger);
+	public Manager saveManager(Manager maanger) {
+		return managerRepo.save(maanger);
 		
 	}
 
 	@Override
 	public void deleteManager(ManagerPrimaryKey key) {
-		managerDAO.deleteManager(key);
+		managerRepo.delete(key);
 		
 	}
 

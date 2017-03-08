@@ -7,9 +7,7 @@ public interface ManagerService {
 
 	public Manager getManager(ManagerPrimaryKey key);
 	
-	public void createManager(Manager maanger);
-	
-	public void updateManager(Manager maanger);
+	public Manager saveManager(Manager maanger);
 	
 	public void deleteManager(ManagerPrimaryKey key);
 }

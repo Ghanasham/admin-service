@@ -20,9 +20,10 @@ public class OrganizationControllerIntegrationTest {
     private TestRestTemplate restTemplate;
 
 	@Test
-	public void testCreateOrganization() throws Exception {
+	public void testUpdateOrganization() throws Exception {
 		
 		Organization org = new Organization();
+		org.setOrgId(1L);
 		org.setName("HDFC");
     	ContactDetails contact = new ContactDetails();
     	contact.setAddressLine1("Addr1");
@@ -35,26 +36,11 @@ public class OrganizationControllerIntegrationTest {
     	
     	org.setOrgContactDetails(contact);
     	
-    	Organization postOrg = restTemplate.postForObject("http://localhost:8080/admin/org", org, Organization.class);
-    	
-    	Organization getOrg = restTemplate.getForObject("http://localhost:8080/admin/org/" + postOrg.getOrgId() , Organization.class);
-    	
-    	Assert.assertEquals(postOrg, getOrg);
-	}
-	
-	
-    @Test
-    public void testUpdateOrganization() throws Exception {
-        
-    	Organization org = restTemplate.getForObject("http://localhost:8080/admin/org/1", Organization.class);
-    	org.setName(org.getName() + " Bank");
-    	
     	restTemplate.put("http://localhost:8080/admin/org/1", org);
     	
-    	Organization org1 = restTemplate.getForObject("http://localhost:8080/admin/org/1", Organization.class);
+    	Organization getOrg = restTemplate.getForObject("http://localhost:8080/admin/org/1", Organization.class);
     	
-    	Assert.assertEquals(org.getName(), org1.getName());
-    	    	
-    }
-    
+    	Assert.assertEquals(org, getOrg);
+	}
+	
 }

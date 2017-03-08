@@ -4,7 +4,7 @@ package com.softcell.adminservice.service.db;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.softcell.adminservice.dao.db.DBOrganizationDAO;
+import com.softcell.adminservice.dao.OrganizationRepository;
 import com.softcell.adminservice.domain.Organization;
 import com.softcell.adminservice.service.OrganizationService;
 
@@ -12,20 +12,16 @@ import com.softcell.adminservice.service.OrganizationService;
 public class DBOrganizationService implements OrganizationService{
 	
 	@Autowired
-	private DBOrganizationDAO organizationDAO;
+	private OrganizationRepository organizationRepo;
 	
 	@Override
 	public Organization getOrganization(Long orgId){
-		return organizationDAO.getOrganization(orgId);
+		return organizationRepo.findOne(orgId);
 	}
 	
 	@Override
-	public Organization createOrganization(Organization org){
-		return organizationDAO.createOrganization(org);
+	public Organization saveOrganization(Organization org){
+		return organizationRepo.save(org);
 	}
 	
-	@Override
-	public void updateOrganization(Organization org){
-		organizationDAO.updateOrganization(org);
-	}
 }
