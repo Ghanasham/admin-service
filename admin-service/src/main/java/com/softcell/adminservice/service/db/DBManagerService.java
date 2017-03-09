@@ -7,6 +7,7 @@ import com.softcell.adminservice.domain.ApplicationType;
 import com.softcell.adminservice.domain.Manager;
 import com.softcell.adminservice.domain.ManagerPrimaryKey;
 import com.softcell.adminservice.repo.ManagerRepository;
+import com.softcell.adminservice.repo.db.ManagerMaxLevelResponse;
 import com.softcell.adminservice.service.ManagerService;
 
 @Service
@@ -33,7 +34,7 @@ public class DBManagerService implements ManagerService{
 	}
 
 	@Override
-	public Manager getNextManager(Long orgId, ApplicationType appType, byte level) {
+	public ManagerMaxLevelResponse getNextManager(Long orgId, ApplicationType appType, byte level) {
 		return managerRepo.getNextManager(orgId, appType, level);
 	}
 

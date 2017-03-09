@@ -3,6 +3,7 @@ package com.softcell.adminservice.repo;
 import com.softcell.adminservice.domain.ApplicationType;
 import com.softcell.adminservice.domain.Manager;
 import com.softcell.adminservice.domain.ManagerPrimaryKey;
+import com.softcell.adminservice.repo.db.ManagerMaxLevelResponse;
 
 
 public interface ManagerRepository{
@@ -16,7 +17,7 @@ public interface ManagerRepository{
 	 * @param level
 	 * @return next manager
 	 */
-	public Manager getNextManager(Long orgId, ApplicationType appType, byte level);
+	public ManagerMaxLevelResponse getNextManager(Long orgId, ApplicationType appType, byte level);
 	
 	public Manager updateManager(Manager manager);
 	

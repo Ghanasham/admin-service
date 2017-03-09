@@ -1,5 +1,8 @@
 package com.softcell.adminservice.integration;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -21,24 +24,30 @@ public class ManagerControllerIntegrationTest {
     private TestRestTemplate restTemplate;
 
 	@Test
-	public void testCreateOrUpdateManager() throws Exception {
+	public void testCreateOrUpdateManagers() throws Exception {
 		
 		Organization organization = new Organization();
     	organization.setOrgId(1L);
     	organization.setName("HDFC");
     	
-    	Manager manager = new Manager();
-    	manager.setEmployeeId(12349L);
-    	manager.setAppType(ApplicationType.HOME_LOAN);
-    	manager.setLevel((byte)2);
-    	manager.setOrgId(organization);
-    	manager.setRole("Risk Manager");
+    	List<Manager> managers = Arrays.asList(new Manager(12341L, ApplicationType.HOME_LOAN, (byte)1, organization, "Underwriter"),
+    			new Manager(12342L, ApplicationType.HOME_LOAN, (byte)1, organization, "Underwriter"),
+    			new Manager(12343L, ApplicationType.HOME_LOAN, (byte)1, organization, "Underwriter"),
+    			new Manager(12344L, ApplicationType.HOME_LOAN, (byte)1, organization, "Underwriter"),
+    			new Manager(12345L, ApplicationType.HOME_LOAN, (byte)2, organization, "Risk Manager"),
+    			new Manager(12346L, ApplicationType.HOME_LOAN, (byte)2, organization, "Risk Manager"),
+    			new Manager(12347L, ApplicationType.HOME_LOAN, (byte)2, organization, "Risk Manager"),
+    			new Manager(12348L, ApplicationType.HOME_LOAN, (byte)3, organization, "Branch Manager"),
+    			new Manager(12349L, ApplicationType.HOME_LOAN, (byte)3, organization, "Branch Manager"),
+    			new Manager(12350L, ApplicationType.HOME_LOAN, (byte)4, organization, "Regional Manager"));
     	
-    	restTemplate.put("http://localhost:8080/admin/manager/" + manager.getEmployeeId() + "/" + manager.getAppType(), manager);
-    	
-    	Manager dbManager = restTemplate.getForObject("http://localhost:8080/admin/manager/" + manager.getEmployeeId() + "/" + manager.getAppType(), Manager.class);
-    	
-    	Assert.assertEquals(manager, dbManager);
+    	for(Manager manager : managers){
+	    	restTemplate.put("http://localhost:8080/admin/manager/" + manager.getEmployeeId() + "/" + manager.getAppType(), manager);
+	    	
+	    	Manager dbManager = restTemplate.getForObject("http://localhost:8080/admin/manager/" + manager.getEmployeeId() + "/" + manager.getAppType(), Manager.class);
+	    	
+	    	Assert.assertEquals(manager, dbManager);
+    	}
 	}
 
 	@Test
@@ -65,4 +74,6 @@ public class ManagerControllerIntegrationTest {
 		
 		Assert.assertNull(dbManager);
 	}
+	
+	
 }

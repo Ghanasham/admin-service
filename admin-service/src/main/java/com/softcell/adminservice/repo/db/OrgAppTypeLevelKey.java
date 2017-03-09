@@ -7,7 +7,7 @@ import com.softcell.adminservice.domain.ApplicationType;
  * @author Ghanasham
  *
  */
-public final class ManagerLevelKey {
+public final class OrgAppTypeLevelKey {
 
 	private Long orgId;
 	
@@ -16,9 +16,9 @@ public final class ManagerLevelKey {
 	private byte level;
 	
 	@SuppressWarnings("unused")
-	private ManagerLevelKey(){}
+	private OrgAppTypeLevelKey(){}
 	
-	public ManagerLevelKey(Long orgId, ApplicationType applicationType, byte level){
+	public OrgAppTypeLevelKey(Long orgId, ApplicationType applicationType, byte level){
 		
 		this.orgId = orgId;
 		this.applicationType = applicationType;

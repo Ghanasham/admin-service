@@ -2,13 +2,13 @@ package com.softcell.adminservice.repo.db;
 
 import com.softcell.adminservice.domain.ApplicationType;
 
-public final class ApplicationTypeLevelKey {
+public final class OrgAppTypeKey {
 
 	private final Long orgId;
 	
 	private final ApplicationType appType;
 
-	public ApplicationTypeLevelKey(Long orgId, ApplicationType appType){
+	public OrgAppTypeKey(Long orgId, ApplicationType appType){
 		this.orgId = orgId;
 		this.appType = appType;
 	}

@@ -32,6 +32,16 @@ public class Manager {
 	 */
 	@Transient
 	Manager next;
+	
+	public Manager(){}
+	
+	public Manager(Long employeeId, ApplicationType appType, byte level, Organization org, String role){
+		this.employeeId = employeeId;
+    	this.appType = appType;
+    	this.level = level;
+    	this.orgId = org;
+    	this.role = role;
+	}
 
 	public Long getEmployeeId() {
 		return employeeId;

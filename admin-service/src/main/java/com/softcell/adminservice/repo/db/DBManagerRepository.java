@@ -7,8 +7,6 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -25,30 +23,42 @@ public class DBManagerRepository implements ManagerRepository{
 	@Autowired
 	EntityManagerFactory emFactory;
 	
-	private Map<ManagerLevelKey, ManagerCircularLinkedList> managerLevelMap = new HashMap<>();
+	private Map<OrgAppTypeLevelKey, ManagerCircularLinkedList> managerLevelMap = new HashMap<>();
 	
-	private Map<ApplicationTypeLevelKey, Byte> maxLevels = new HashMap<>();
+	private Map<OrgAppTypeKey, Byte> maxLevels = new HashMap<>();
 	
 	
+	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void initManagerLevelMap(){
 		
 		EntityManager entityManager = emFactory.createEntityManager();
 		entityManager.getTransaction().begin();
 		
-		@SuppressWarnings("unchecked")
+		
 		List<Manager> managerList = entityManager.createQuery("SELECT m FROM Manager m").getResultList();
 		
-		
 		for(Manager manager : managerList){
-			ManagerLevelKey key = new ManagerLevelKey(manager.getOrgId().getOrgId(), manager.getAppType(), manager.getLevel());
+			OrgAppTypeLevelKey key = new OrgAppTypeLevelKey(manager.getOrgId().getOrgId(), manager.getAppType(), manager.getLevel());
 			
 			ManagerCircularLinkedList circularList = managerLevelMap.get(key);
 			if(circularList == null){
 				circularList = new ManagerCircularLinkedList();
+				managerLevelMap.put(key, circularList);
 			}
 			circularList.add(manager);
+			
 		}
+		
+		List<Object[]> results = entityManager.createQuery("SELECT m.orgId.orgId, m.appType, MAX(m.level) FROM Manager m GROUP BY m.orgId, m.appType").getResultList();
+		
+		for (Object[] result : results) {
+			
+			maxLevels.put(new OrgAppTypeKey((Long) result[0], (ApplicationType) result[1]), (Byte) result[2]);
+		}
+		
+		entityManager.getTransaction().commit();
+		entityManager.close();
 	}
 	
 	/**
@@ -59,11 +69,16 @@ public class DBManagerRepository implements ManagerRepository{
 	 * @return next manager
 	 */
 	@Override
-	public Manager getNextManager(Long orgId, ApplicationType appType, byte level){
+	public ManagerMaxLevelResponse getNextManager(Long orgId, ApplicationType appType, byte level){
 		
-		ManagerLevelKey key = new ManagerLevelKey(orgId, appType, level);
-		return managerLevelMap.get(key).getNext();
+		OrgAppTypeLevelKey key1 = new OrgAppTypeLevelKey(orgId, appType, level);
+		Long managerEmployeeId = managerLevelMap.get(key1).getNext().getEmployeeId();
 		
+		
+		OrgAppTypeKey key2 = new OrgAppTypeKey(orgId, appType);
+		Byte maxLevel = maxLevels.get(key2);
+		
+		return new ManagerMaxLevelResponse(managerEmployeeId, maxLevel);
 	}
 	
 	@Override

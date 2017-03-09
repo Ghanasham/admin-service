@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.softcell.adminservice.domain.ApplicationType;
 import com.softcell.adminservice.domain.Manager;
 import com.softcell.adminservice.domain.ManagerPrimaryKey;
+import com.softcell.adminservice.repo.db.ManagerMaxLevelResponse;
 import com.softcell.adminservice.service.ManagerService;
 
 @RestController
@@ -26,8 +27,8 @@ public class ManagerController {
 	}
 	
 	@RequestMapping(path = "/next-manager/{orgId}/{appType}/{level}", method = RequestMethod.GET)
-	public Long getNextManagerId(@PathVariable Long orgId, @PathVariable ApplicationType appType, @PathVariable byte level){
-		return managerService.getNextManager(orgId, appType, level).getEmployeeId();
+	public ManagerMaxLevelResponse getNextManagerId(@PathVariable Long orgId, @PathVariable ApplicationType appType, @PathVariable byte level){
+		return managerService.getNextManager(orgId, appType, level);
 	}
 	
 	@RequestMapping(path = "/{employeeId}/{appType}", method = RequestMethod.PUT)
