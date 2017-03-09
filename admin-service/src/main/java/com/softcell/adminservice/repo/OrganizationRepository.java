@@ -1,4 +1,4 @@
-package com.softcell.adminservice.dao;
+package com.softcell.adminservice.repo;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

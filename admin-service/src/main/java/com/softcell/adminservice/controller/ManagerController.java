@@ -25,6 +25,11 @@ public class ManagerController {
 		return managerService.getManager(new ManagerPrimaryKey(employeeId, appType));
 	}
 	
+	@RequestMapping(path = "/next-manager/{orgId}/{appType}/{level}", method = RequestMethod.GET)
+	public Long getNextManagerId(@PathVariable Long orgId, @PathVariable ApplicationType appType, @PathVariable byte level){
+		return managerService.getNextManager(orgId, appType, level).getEmployeeId();
+	}
+	
 	@RequestMapping(path = "/{employeeId}/{appType}", method = RequestMethod.PUT)
 	public HttpStatus updateManager(@PathVariable Long employeeId, @PathVariable ApplicationType appType, @RequestBody Manager manager){
 		managerService.saveManager(manager);

@@ -28,7 +28,7 @@ public class ManagerControllerIntegrationTest {
     	organization.setName("HDFC");
     	
     	Manager manager = new Manager();
-    	manager.setEmployeeId(12348L);
+    	manager.setEmployeeId(12349L);
     	manager.setAppType(ApplicationType.HOME_LOAN);
     	manager.setLevel((byte)2);
     	manager.setOrgId(organization);

@@ -4,8 +4,8 @@ package com.softcell.adminservice.service.db;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.softcell.adminservice.dao.OrganizationRepository;
 import com.softcell.adminservice.domain.Organization;
+import com.softcell.adminservice.repo.OrganizationRepository;
 import com.softcell.adminservice.service.OrganizationService;
 
 @Service

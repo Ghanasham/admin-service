@@ -6,6 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 @IdClass(ManagerPrimaryKey.class)
 @Entity
@@ -25,6 +26,12 @@ public class Manager {
 	
 	@Column(nullable = false)
 	private byte level;
+	
+	/**
+	 * Reference of next manager in circular linked list
+	 */
+	@Transient
+	Manager next;
 
 	public Long getEmployeeId() {
 		return employeeId;
