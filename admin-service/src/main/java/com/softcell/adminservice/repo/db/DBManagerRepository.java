@@ -4,8 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,19 +22,17 @@ import com.softcell.adminservice.repo.ManagerRepository;
 @Repository
 public class DBManagerRepository implements ManagerRepository{
 
-	@PersistenceUnit
+	@Autowired
 	EntityManagerFactory emFactory;
 	
-	private Map<ManagerLevelKey, ManagerCircularLinkedList> managerLevelMap;
+	private Map<ManagerLevelKey, ManagerCircularLinkedList> managerLevelMap = new HashMap<>();
 	
-	private Map<ApplicationTypeLevelKey, Byte> maxLevels;
+	private Map<ApplicationTypeLevelKey, Byte> maxLevels = new HashMap<>();
 	
-	public DBManagerRepository(){
-		initManagerLevelMap();
-	}
 	
-	private void initManagerLevelMap(){
-		managerLevelMap = new HashMap<>();
+	@PostConstruct
+	public void initManagerLevelMap(){
+		
 		EntityManager entityManager = emFactory.createEntityManager();
 		entityManager.getTransaction().begin();
 		
