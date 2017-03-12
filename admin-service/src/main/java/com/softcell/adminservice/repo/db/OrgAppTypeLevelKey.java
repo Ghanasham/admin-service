@@ -38,6 +38,25 @@ public final class OrgAppTypeLevelKey {
 	}
 	
 	@Override
+	public boolean equals(Object obj) {
+		
+		if(obj == null || !(obj instanceof OrgAppTypeLevelKey))
+			return false;
+		
+		
+		OrgAppTypeLevelKey other = (OrgAppTypeLevelKey)obj;
+		
+		return orgId.equals(other.orgId) 
+				&& applicationType.equals(other.applicationType)
+				&& level == other.level;
+	}
+	
+	@Override
+	public int hashCode() {
+		return orgId.hashCode() ^ applicationType.hashCode() ^ level;
+	}
+	
+	@Override
 	protected Object clone() throws CloneNotSupportedException {
 		throw new CloneNotSupportedException("This is immutable object");
 	}

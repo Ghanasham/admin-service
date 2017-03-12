@@ -6,6 +6,8 @@ public class ManagerMaxLevelResponse {
 	
 	private Byte maxLevels;
 	
+	public ManagerMaxLevelResponse(){}
+	
 	public ManagerMaxLevelResponse(Long managerEmployeeId, Byte maxLevels){
 		this.managerEmployeeId = managerEmployeeId;
 		this.maxLevels = maxLevels;

@@ -12,8 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.softcell.adminservice.domain.ApplicationType;
+import com.softcell.adminservice.domain.CircularLinkedList;
 import com.softcell.adminservice.domain.Manager;
-import com.softcell.adminservice.domain.ManagerCircularLinkedList;
 import com.softcell.adminservice.domain.ManagerPrimaryKey;
 import com.softcell.adminservice.repo.ManagerRepository;
 
@@ -23,7 +23,7 @@ public class DBManagerRepository implements ManagerRepository{
 	@Autowired
 	EntityManagerFactory emFactory;
 	
-	private Map<OrgAppTypeLevelKey, ManagerCircularLinkedList> managerLevelMap = new HashMap<>();
+	private Map<OrgAppTypeLevelKey, CircularLinkedList<Manager>> managerLevelMap = new HashMap<>();
 	
 	private Map<OrgAppTypeKey, Byte> maxLevels = new HashMap<>();
 	
@@ -36,14 +36,14 @@ public class DBManagerRepository implements ManagerRepository{
 		entityManager.getTransaction().begin();
 		
 		
-		List<Manager> managerList = entityManager.createQuery("SELECT m FROM Manager m").getResultList();
+		List<Manager> managerList = entityManager.createQuery("SELECT m FROM Manager m ORDER BY m.employeeId").getResultList();
 		
 		for(Manager manager : managerList){
 			OrgAppTypeLevelKey key = new OrgAppTypeLevelKey(manager.getOrgId().getOrgId(), manager.getAppType(), manager.getLevel());
 			
-			ManagerCircularLinkedList circularList = managerLevelMap.get(key);
+			CircularLinkedList<Manager> circularList = managerLevelMap.get(key);
 			if(circularList == null){
-				circularList = new ManagerCircularLinkedList();
+				circularList = new CircularLinkedList<>();
 				managerLevelMap.put(key, circularList);
 			}
 			circularList.add(manager);
@@ -77,6 +77,8 @@ public class DBManagerRepository implements ManagerRepository{
 		
 		OrgAppTypeKey key2 = new OrgAppTypeKey(orgId, appType);
 		Byte maxLevel = maxLevels.get(key2);
+		
+		System.out.println("managerEmployeeId - " + managerEmployeeId + " maxLevel - " + maxLevel);
 		
 		return new ManagerMaxLevelResponse(managerEmployeeId, maxLevel);
 	}

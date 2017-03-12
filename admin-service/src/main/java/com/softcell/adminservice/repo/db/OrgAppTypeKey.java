@@ -22,6 +22,25 @@ public final class OrgAppTypeKey {
 	}
 	
 	@Override
+	public boolean equals(Object obj) {
+		
+		if(obj == null || !(obj instanceof OrgAppTypeKey))
+			return false;
+		
+		
+		OrgAppTypeKey other = (OrgAppTypeKey)obj;
+		
+		return orgId.equals(other.orgId) 
+				&& appType.equals(other.appType);
+				
+	}
+	
+	@Override
+	public int hashCode() {
+		return orgId.hashCode() ^ appType.hashCode();
+	}
+	
+	@Override
 	protected Object clone() throws CloneNotSupportedException {
 		throw new CloneNotSupportedException("This is immutable object");
 	}
