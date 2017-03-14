@@ -6,9 +6,8 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.softcell.adminservice.domain.ApplicationType;
@@ -20,8 +19,8 @@ import com.softcell.adminservice.repo.ManagerRepository;
 @Repository
 public class DBManagerRepository implements ManagerRepository{
 
-	@Autowired
-	EntityManagerFactory emFactory;
+	@PersistenceContext
+	EntityManager entityManager;
 	
 	private Map<OrgAppTypeLevelKey, CircularLinkedList<Manager>> managerLevelMap = new HashMap<>();
 	
@@ -31,10 +30,6 @@ public class DBManagerRepository implements ManagerRepository{
 	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void initManagerLevelMap(){
-		
-		EntityManager entityManager = emFactory.createEntityManager();
-		entityManager.getTransaction().begin();
-		
 		
 		List<Manager> managerList = entityManager.createQuery("SELECT m FROM Manager m ORDER BY m.employeeId").getResultList();
 		
@@ -57,8 +52,7 @@ public class DBManagerRepository implements ManagerRepository{
 			maxLevels.put(new OrgAppTypeKey((Long) result[0], (ApplicationType) result[1]), (Byte) result[2]);
 		}
 		
-		entityManager.getTransaction().commit();
-		entityManager.close();
+		
 	}
 	
 	/**
@@ -78,55 +72,32 @@ public class DBManagerRepository implements ManagerRepository{
 		OrgAppTypeKey key2 = new OrgAppTypeKey(orgId, appType);
 		Byte maxLevel = maxLevels.get(key2);
 		
-		System.out.println("managerEmployeeId - " + managerEmployeeId + " maxLevel - " + maxLevel);
-		
 		return new ManagerMaxLevelResponse(managerEmployeeId, maxLevel);
 	}
 	
 	@Override
 	public Manager getManager(ManagerPrimaryKey id) {
 		
-		EntityManager entityManager = emFactory.createEntityManager();
-		entityManager.getTransaction().begin();
-		
-		Manager manager = entityManager.find(Manager.class, id);
-		
-		entityManager.getTransaction().commit();
-		entityManager.close();
-		
-		return manager;
+		return entityManager.find(Manager.class, id);
 	}
 
 	@Override
 	public Manager updateManager(Manager manager) {
-		EntityManager entityManager = emFactory.createEntityManager();
-		entityManager.getTransaction().begin();
 		
 		entityManager.persist(manager);
-		
-		entityManager.getTransaction().commit();
-		entityManager.close();
-		
 		return manager;
 		
-		//ToDo
+		//TODO
 		//Update in managerLevelMap
 	}
 
 	@Override
 	public void deleteManager(ManagerPrimaryKey id) {
-		EntityManager entityManager = emFactory.createEntityManager();
-		entityManager.getTransaction().begin();
-		
+
 		entityManager.remove(id);
 		
-		entityManager.getTransaction().commit();
-		entityManager.close();
-		
-		
-		//ToDo
+		//TODO
 		//Delete from managerLevelMap
-		
 	}
 
 }
